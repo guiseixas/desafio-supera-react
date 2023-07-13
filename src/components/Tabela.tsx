@@ -69,7 +69,7 @@ function Tabela() {
         <div>
           <p>Data de início</p>
           <input 
-            type="text" 
+            type="date" 
             placeholder="Data de início" 
             value={dataInicio} 
             onChange={handleDataInicioChange} 
@@ -79,7 +79,7 @@ function Tabela() {
           <p className='buttonCenter'>Data de fim</p>
           <input 
             className='buttonCenter' 
-            type="text" 
+            type="date" 
             placeholder="Data de fim"
             value={dataFim}
             onChange={handleDataFimChange} 
