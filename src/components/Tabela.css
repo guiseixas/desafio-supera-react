@@ -6,13 +6,18 @@
 
 .Input {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-evenly;  
 }
 
 .Input div {
   display: flex;
   flex-direction: column;
   margin-right: 10px;
+}
+
+.Pagination {
+  display: flex;
+  justify-content: center;
 }
 
 .buttonCenter {
@@ -24,12 +29,27 @@
   color: white;
   border: none;
   padding: 10px 20px;
-  font-size: 13px; 
+  font-size: 14px; 
   cursor: pointer;
   border-radius: 10px;
 }
 
 .buttonStyle:hover {
+  background: linear-gradient(90deg, #07bdf4 0, #0388e5); 
+}
+
+.buttonStylePagination {
+  background: linear-gradient(90deg, #0388e5 0, #07bdf4);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 10px; 
+  cursor: pointer;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.buttonStylePagination:hover {
   background: linear-gradient(90deg, #07bdf4 0, #0388e5); 
 }
 

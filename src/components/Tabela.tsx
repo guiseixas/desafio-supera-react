@@ -1,30 +1,42 @@
-import React, { useState, ChangeEvent } from 'react';
-import '../components/Tabela.css'
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import moment from 'moment';
+import { getTransferencias } from '../routes/Api.service';
+import { Transferencia } from '../entities/Transferencia';
 
 function Tabela() {
-  const [dados, setDados] = useState([
-    { id: 1, coluna0: 'Item 1', coluna1: 'Valor 1', coluna2: 'Valor 2', coluna3: 'Valor 3' },
-    { id: 2, coluna0: 'Item 2', coluna1: 'Valor 4', coluna2: 'Valor 5', coluna3: 'Valor 6' },
-    { id: 3, coluna0: 'Item 3', coluna1: 'Valor 7', coluna2: 'Valor 8', coluna3: 'Valor 9' },
-    { id: 4, coluna0: 'Item 4', coluna1: 'Valor 10', coluna2: 'Valor 11', coluna3: 'Valor 12' },
-  ]);
-
+  const [dados, setDados] = useState<Transferencia[]>([]);
   const [filtro, setFiltro] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleFiltroChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFiltro(event.target.value);
   };
 
-  const filtrarDados = () => {
-    return dados.filter(
-      (item) =>
-        item.coluna1.toLowerCase().includes(filtro.toLowerCase()) ||
-        item.coluna2.toLowerCase().includes(filtro.toLowerCase()) ||
-        item.coluna3.toLowerCase().includes(filtro.toLowerCase())
-    );
+  useEffect(() => {
+    const fetchDados = async () => {
+      try {
+        const dadosResponse = await getTransferencias();
+        console.log(dadosResponse)
+        setDados(dadosResponse);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+    };
+    fetchDados();
+  }, []);
+
+  const itemsPerPage = 4;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const totalPages = Math.ceil(dados.length / itemsPerPage);
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
-  const dadosFiltrados = filtrarDados();
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   return (
     <div>
@@ -52,26 +64,35 @@ function Tabela() {
         <table>
           <thead>
             <tr>
-              <th>Dados</th>
-              <th>Valentia</th>
+              <th>Data</th>
+              <th>Valor</th>
               <th>Tipo</th>
-              <th>Nome operador transacionado</th>
+              <th>Nome do Operador</th>
             </tr>
           </thead>
           <tbody>
-            {dadosFiltrados.map((item) => (
+            {dados.slice(startIndex, endIndex).map((item) => (
               <tr key={item.id}>
-                <td>{item.coluna0}</td>
-                <td>{item.coluna1}</td>
-                <td>{item.coluna2}</td>
-                <td>{item.coluna3}</td>
+                <td>{moment(item.dataTransferencia).format('DD/MM/YYYY')}</td>
+                <td>R$ {item.valor}</td>
+                <td>{item.tipo}</td>
+                <td>{item.conta.nomeResponsavel}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      <div className="Pagination">
+        <button className='buttonStylePagination' onClick={handlePreviousPage} disabled={currentPage === 1}>
+          {'<'}
+        </button>
+        <button className='buttonStylePagination' onClick={handleNextPage} disabled={currentPage === totalPages}>
+          {'>'}
+        </button>
+      </div>
     </div>
   );
-};
+}
 
 export default Tabela;
