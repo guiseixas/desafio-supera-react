@@ -76,7 +76,7 @@ function Tabela() {
                 <td>{moment(item.dataTransferencia).format('DD/MM/YYYY')}</td>
                 <td>R$ {item.valor}</td>
                 <td>{item.tipo}</td>
-                <td>{item.conta.nomeResponsavel}</td>
+                <td>{item.nomeOperadorTransacao}</td>
               </tr>
             ))}
           </tbody>
