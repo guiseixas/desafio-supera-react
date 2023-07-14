@@ -59,6 +59,8 @@ function Tabela() {
       const dadosResponse = await getTransferenciasFilter(filter);
       setDadosFiltrados(dadosResponse);
     } catch (error) {
+      setDadosFiltrados([])
+      setDados([])
       console.error('Erro ao buscar dados:', error);
     }
   };
