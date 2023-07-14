@@ -75,7 +75,7 @@ function Tabela() {
             onChange={handleDataInicioChange} 
           />
         </div>
-        <div>
+        <div className='buttonCenter'>
           <p className='buttonCenter'>Data de fim</p>
           <input 
             className='buttonCenter' 
@@ -115,7 +115,7 @@ function Tabela() {
             {(dadosFiltrados.length > 0 ? dadosFiltrados : dados).slice(startIndex, endIndex).map((item) => (
               <tr key={item.id}>
                 <td>{moment(item.dataTransferencia).format('DD/MM/YYYY')}</td>
-                <td>R$ {item.valor}</td>
+                <td>R$ {item.valor?.toFixed(2)}</td>
                 <td>{item.tipo}</td>
                 <td>{item.nomeOperadorTransacao}</td>
               </tr>
