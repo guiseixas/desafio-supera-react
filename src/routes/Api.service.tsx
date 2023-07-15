@@ -35,6 +35,6 @@ export const getTransferenciasFilter = async (transferenciaFilter: Transferencia
         const response = await api.get('/api/transferencias', { params });
         return response.data  
     } catch (error) {
-        throw error;
+        console.error('Erro ao buscar dados:', error);
     }
 };

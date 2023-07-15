@@ -61,7 +61,7 @@ function Tabela() {
     } catch (error) {
       setDadosFiltrados([])
       setDados([])
-      console.error('Erro ao buscar dados:', error);
+      console.error('Nenhum dado com o filtro específico foi encontrado:', error);
     }
   };
 
