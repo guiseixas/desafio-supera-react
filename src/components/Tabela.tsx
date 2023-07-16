@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { getTransferencias, getTransferenciasFilter } from '../routes/Api.service';
 import { Transferencia } from '../entities/Transferencia';
@@ -33,6 +33,17 @@ function Tabela() {
       try {
         const dadosResponse = await getTransferencias();
         setDados(dadosResponse);
+
+        const saldoTotalInicial = dadosResponse.reduce((total: number, transferencia: { tipo: string; valor: number; }) => {
+          if (transferencia.tipo === 'DEPOSITO' || transferencia.tipo === 'TRANSFERENCIA'
+          || transferencia.tipo === 'TRANSFERENCIA ENTRADA') {
+            return total + transferencia.valor;
+          } else if (transferencia.tipo === 'SAQUE' || transferencia.tipo === 'TRANSFERENCIA SAIDA') { 
+            return total + transferencia.valor; 
+          } 
+          return total;
+        }, 0);
+        setSaldoTotal(saldoTotalInicial);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
