@@ -2,6 +2,13 @@
 .Tabela {
   display: flex;
   justify-content: center;
+  flex-direction: column; 
+  align-items: center;
+}
+
+.Saldo {
+  display: flex;
+  align-items: center;
 }
 
 .Input {
@@ -23,7 +30,6 @@
 .buttonCenter {
   margin-left: 36px;
 }
-
 
 .buttonStyle {
   background: linear-gradient(90deg, #0388e5 0, #07bdf4);
@@ -55,7 +61,7 @@
 }
 
 .buttonSearch {
-  margin-top: 30px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
 }

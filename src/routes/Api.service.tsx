@@ -32,6 +32,10 @@ export const getTransferenciasFilter = async (transferenciaFilter: Transferencia
             params.dataFim = transferenciaFilter.dataFim;
         }
 
+        if(transferenciaFilter.numeroConta !== undefined && transferenciaFilter.numeroConta !== 0){
+            params.numeroConta = transferenciaFilter.numeroConta.toString();
+        }
+        console.log(params)
         const response = await api.get('/api/transferencias', { params });
         return response.data  
     } catch (error) {
