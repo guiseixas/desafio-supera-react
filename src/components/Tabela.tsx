@@ -28,21 +28,26 @@ function Tabela() {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  const calcularSaldoTotal = (dadosTransferencia: Transferencia[]): number => {
+    return dadosTransferencia.reduce((total: number, transferencia: Transferencia) => {
+      /*
+      * Independente do tipo de transferencia (Entrada, saída, saque ou depósito) o cálculo a seguir total + transferencia.valor
+      * é executado, pois nas transferências de saída (saída ou saque) o atributo "valor" de transferência já vem com o valor negativo
+      * portanto é feito jogo de sinal matemático com o "+" da expressão abaixo e o cálculo fica correto.
+      */
+      if (transferencia.valor) {
+        return total + transferencia.valor;
+      }
+      return total;
+    }, 0);
+  };
+  
   useEffect(() => {
     const fetchDados = async () => {
       try {
         const dadosResponse = await getTransferencias();
         setDados(dadosResponse);
-
-        const saldoTotalInicial = dadosResponse.reduce((total: number, transferencia: { tipo: string; valor: number; }) => {
-          if (transferencia.tipo === 'DEPOSITO' || transferencia.tipo === 'TRANSFERENCIA'
-          || transferencia.tipo === 'TRANSFERENCIA ENTRADA') {
-            return total + transferencia.valor;
-          } else if (transferencia.tipo === 'SAQUE' || transferencia.tipo === 'TRANSFERENCIA SAIDA') { 
-            return total + transferencia.valor; 
-          } 
-          return total;
-        }, 0);
+        const saldoTotalInicial = calcularSaldoTotal(dadosResponse);
         setSaldoTotal(saldoTotalInicial);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -62,16 +67,7 @@ function Tabela() {
       const dadosResponse = await getTransferenciasFilter(filter);
       setDadosFiltrados(dadosResponse);
 
-      const saldoTotal = dadosResponse.reduce((total: number, transferencia: { tipo: string; valor: number; }) => {
-        if (transferencia.tipo === 'DEPOSITO' || transferencia.tipo === 'TRANSFERENCIA'
-        || transferencia.tipo === 'TRANSFERENCIA ENTRADA') {
-          return total + transferencia.valor;
-          //A api já retorna os valores de saque como negativos, portanto usa-se "+" para jogo de sinal matemático
-        } else if (transferencia.tipo === 'SAQUE' || transferencia.tipo === 'TRANSFERENCIA SAIDA') { 
-          return total + transferencia.valor; 
-        } 
-        return total;
-      }, 0);
+      const saldoTotal = calcularSaldoTotal(dadosResponse);
       setSaldoTotal(saldoTotal);
       setSaldoTotalPeriodo(0);
 
