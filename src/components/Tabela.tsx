@@ -95,10 +95,9 @@ function Tabela() {
             onChange={(event) => setDataInicio(event.target.value)} 
           />
         </div>
-        <div className='buttonCenter'>
-          <p className='buttonCenter'>Data de fim</p>
+        <div>
+          <p>Data de fim</p>
           <input 
-            className='buttonCenter' 
             type="date" 
             placeholder="Data de fim"
             value={dataFim}
