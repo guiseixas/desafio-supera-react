@@ -8,7 +8,7 @@
 
 Exemplos simples de execução:
 
-Tela inicial: retorna todas as transferências presentes na base de dados da API assim como o saldo total levando em consideração o tipo de transferência: SALDO, DEPÓSITO, ENTRADA OU SAÍDA.
+Tela inicial: retorna todas as transferências presentes na base de dados da API assim como o saldo total levando em consideração o tipo de transferência: SAQUE, DEPÓSITO, ENTRADA OU SAÍDA.
 
 ![image](https://github.com/guiseixas/desafio-supera-react/assets/83587109/2ea81866-fcd1-4950-908d-3b4db59389e0)
 
