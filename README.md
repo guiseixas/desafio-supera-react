@@ -12,7 +12,7 @@ Tela inicial: retorna todas as transferências presentes na base de dados da API
 
 ![image](https://github.com/guiseixas/desafio-supera-react/assets/83587109/2ea81866-fcd1-4950-908d-3b4db59389e0)
 
-Aplicação de filtros: foi aplicado o filtro de conta, retornando apenas as transferências da conta de `id = 1` onde a data da transferência está no intervalo data início e data fim.
+Aplicação de filtros: foi aplicado o filtro de conta, retornando apenas as transferências da conta de `id = 1` onde a data da transferência está no intervalo data início e data fim demonstrando também o saldo geral das transações retornadas e o saldo no período.
 
 ![image](https://github.com/guiseixas/desafio-supera-react/assets/83587109/5d0f515f-c189-4eef-b981-9b1a4d02fba7)
 
